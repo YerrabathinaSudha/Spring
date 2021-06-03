@@ -1,0 +1,56 @@
+package com.demo.firstapp.sampleapp.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+
+
+@RestController
+@RequestMapping("DepartmentsApp/")
+public class Demo {
+    @RequestMapping("Greetings/")
+    public String Greetings()
+    {
+        return "welcome to the Departments application";
+    }
+// @RequestMapping(value = "/temp", method = RequestMethod.GET)
+@RequestMapping("/temp")
+public String getData(
+                    @RequestParam(value = "dep", required = false) String name
+                    ){
+       String results=null;
+       if(name!=null){
+           results="DepartmentName "+' '+name;
+       }else{
+           results="No Department";
+       }
+       return results;
+}
+@RequestMapping(value="deparmentapi/{name}/{code}/{id}")
+    public String getMessage(
+            @PathVariable String name, 
+            @PathVariable String code,
+            @PathVariable int id
+            ) {
+        
+        String  msg = "Department Name:"+name+' '+"Department Code:"+code+ ' '+ "Department Id:"+id;
+        
+        return msg;
+    }
+
+
+    @RequestMapping("/api/employees/{id}")
+    public String getEmployeesById(@PathVariable String id) {
+        return "ID: " + id;
+    }
+
+    @RequestMapping(path="/api/{name}/{age}")
+    public String getEmpployeeNameAge(@PathVariable("name") String name, 
+            @PathVariable("age") String age) {
+        
+        String msg = String.format("%s is %s years old", name, age);
+        
+        return msg;
+    }
+
+}
